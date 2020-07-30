@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { WeatherService } from './../services/weather.service';
+import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-display-weather',
   templateUrl: './display-weather.component.html',
   styleUrls: ['./display-weather.component.css']
 })
-export class DisplayWeatherComponent implements OnInit {
+export class DisplayWeatherComponent {
 
-  constructor() { }
+  public userZipcode = '';
+  public displayData = '';
 
-  ngOnInit(): void {
+  constructor(private weatherService: WeatherService) { }
+
+  onFetchWeather():void {
+    if (!this.userZipcode) {
+      this.displayData = '';
+      return;
+    }
+
+    this.weatherService.getWeatherByZipcode(this.userZipcode)
+      .subscribe(weatherData => {
+        this.displayData = weatherData.weather[0].description;
+      });
   }
-
 }
