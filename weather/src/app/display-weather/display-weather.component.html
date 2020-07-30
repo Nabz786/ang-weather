@@ -1,1 +1,9 @@
-<p>display-weather works!</p>
+<label for="zipcodeBox">Enter Your Zipcode in the box and click fetch:<span>&nbsp;</span></label>
+<input [(ngModel)]="userZipcode" type="text" id="zipcodeBox">
+<br>
+<button (click)="onFetchWeather()">Fetch weather</button>
+
+<div *ngIf="displayData">
+    {{displayData}}
+</div>
+
