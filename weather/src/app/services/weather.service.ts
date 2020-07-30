@@ -12,7 +12,7 @@ export class WeatherService {
     constructor(private httpClient: HttpClient) {}
 
     getWeatherByZipcode(userZipcode: string): Observable<any> {
-        this.baseUrl += `${userZipcode},us&appid=${this.apiKey}`;
+        const completeUrl = this.baseUrl + `${userZipcode},us&appid=${this.apiKey}`;
         return this.httpClient.get(this.baseUrl);
     }
 }
