@@ -1,9 +1,22 @@
-<label for="zipcodeBox">Enter Your Zipcode in the box and click fetch:<span>&nbsp;</span></label>
-<input [(ngModel)]="userZipcode" type="text" id="zipcodeBox">
-<br>
-<button (click)="onFetchWeather()">Fetch weather</button>
+<label for="userSpecifiedLocation">
+    Location to get weather for: 
+    <input type="text" id="userSpecifiedLocation" class="form-control" 
+        [formControl]="userSpecifiedLocation" required>
+</label>
+<p>
+    <button (click)="onFetchWeather()">Fetch Weather</button>
+</p>
+<div *ngIf="userSpecifiedLocation.invalid && (userSpecifiedLocation.dirty || userSpecifiedLocation.touched)"
+    class="alert alert-danger">
+    Invalid City, Country
+</div>
 
-<div *ngIf="displayData">
-    {{displayData}}
+
+<div *ngIf="weatherConditionsRetrieved$ | async">
+    <p>
+        Current Temp: {{ weatherDataToDisplay.temperatureData["temp"] }}
+        Winds: {{ weatherDataToDisplay.temperatureData["wind_speed"] }}
+        Clouds: {{ weatherDataToDisplay.outsideWeatherCondition[0]["description"] }}
+    </p>
 </div>
 
