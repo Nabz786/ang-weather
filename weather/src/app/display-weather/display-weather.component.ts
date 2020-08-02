@@ -24,20 +24,27 @@ export class DisplayWeatherComponent {
     	if (!this.userSpecifiedLocation.valid) {
     		return;
 		}
-	
-	this.weatherConditionsRetrieved$ = this.weatherService.getLatitudeAndLongitudeByLocation('Los Angeles', 'US')
-		.pipe(
-			switchMap(
-				queriedLocationLatLng => {
-					return this.weatherService.getWeatherByZipcode(queriedLocationLatLng);
-				}
-			),
-			tap(
-				weatherData => {
-					this.weatherDataToDisplay.temperatureData = weatherData.temperatureData;
-					this.weatherDataToDisplay.outsideWeatherCondition = weatherData.outsideWeatherCondition;
-				}
+
+		const specifiedLocationPieces = this.userSpecifiedLocation.value.split(',');
+		const city = specifiedLocationPieces[0];
+		const countryCode = specifiedLocationPieces[1];
+
+		this.weatherConditionsRetrieved$ = this.weatherService
+			.getLatitudeAndLongitudeByLocation(city, countryCode)
+			.pipe(
+				switchMap(
+					queriedLocationLatLng => {
+						return this.weatherService.getWeatherByZipcode(queriedLocationLatLng);
+					}
+				),
+				tap(
+					weatherData => {
+						this.weatherDataToDisplay.temperatureData = 
+							weatherData.temperatureData;
+						this.weatherDataToDisplay.outsideWeatherCondition = 
+							weatherData.outsideWeatherCondition;
+					}
+				)
 			)
-		)
-    }
+		}
 }
