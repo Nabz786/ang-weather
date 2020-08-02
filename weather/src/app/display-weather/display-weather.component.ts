@@ -1,28 +1,43 @@
-import { WeatherService } from './../services/weather.service';
-import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { WeatherService } from '../shared/services/weather.service';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { WeatherCondition } from '../shared/models/classes/weather-condition.model';
+import { switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
   selector: 'app-display-weather',
   templateUrl: './display-weather.component.html',
-  styleUrls: ['./display-weather.component.css']
+  styleUrls: ['./display-weather.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DisplayWeatherComponent {
 
-  public userZipcode = '';
-  public displayData = '';
+	public weatherDataToDisplay: WeatherCondition = new WeatherCondition();
+  	public weatherConditionsRetrieved$: Observable<WeatherCondition>;
+  	userSpecifiedLocation = new FormControl('', [Validators.required]);
 
-  constructor(private weatherService: WeatherService) { }
+  	constructor(private weatherService: WeatherService) { }
 
-  onFetchWeather():void {
-    if (!this.userZipcode) {
-      this.displayData = '';
-      return;
+  	onFetchWeather(): void {
+    	if (!this.userSpecifiedLocation.valid) {
+    		return;
+		}
+	
+	this.weatherConditionsRetrieved$ = this.weatherService.getLatitudeAndLongitudeByLocation('Los Angeles', 'US')
+		.pipe(
+			switchMap(
+				queriedLocationLatLng => {
+					return this.weatherService.getWeatherByZipcode(queriedLocationLatLng);
+				}
+			),
+			tap(
+				weatherData => {
+					this.weatherDataToDisplay.temperatureData = weatherData.temperatureData;
+					this.weatherDataToDisplay.outsideWeatherCondition = weatherData.outsideWeatherCondition;
+				}
+			)
+		)
     }
-
-    this.weatherService.getWeatherByZipcode(this.userZipcode)
-      .subscribe(weatherData => {
-        this.displayData = weatherData.weather[0].description;
-      });
-  }
 }
