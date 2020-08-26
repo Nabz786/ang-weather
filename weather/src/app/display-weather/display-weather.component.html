@@ -1,4 +1,4 @@
-<label for="userSpecifiedLocation">
+<!-- <label for="userSpecifiedLocation">
     Location to get weather for: 
     <input type="text" id="userSpecifiedLocation" class="form-control" 
         [formControl]="userSpecifiedLocation" required>
@@ -18,5 +18,18 @@
         Winds: {{ weatherDataToDisplay.temperatureData["wind_speed"] }}
         Clouds: {{ weatherDataToDisplay.outsideWeatherCondition[0]["description"] }}
     </p>
-</div>
+</div> -->
 
+<div class="container h-100 center">
+  <div class="row w-100 d-md-block">
+      <div class="col-md-4 float-right">
+          <div class="news-information-container card shadow-sm"></div>
+      </div>
+      <div class="col-md-8 float-left order-1 p-0">
+          <div class="weather-information-container card shadow-sm"></div>
+      </div>
+      <div class="col-md-4 float-right order-0">
+          <div class="sun-information-container card shadow-sm"></div>
+      </div>
+  </div>
+</div>
