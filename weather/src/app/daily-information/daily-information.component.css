@@ -1,0 +1,19 @@
+.daily-info {
+    font-size: 1.25rem; 
+    height: 70px; 
+    width: 95px; 
+    line-height: 0px;
+}
+
+@media screen and (max-width: 1215px) {
+    .daily-info {
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .daily-info {
+        font-size: 15px;
+        height: 25px;
+    }
+}

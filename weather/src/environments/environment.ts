@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    weatherApiKey: "",
-    geoCoderApiKey: ""
+    weatherApiKey: "c732a5ce1b1284bb5ae4a05f6106022e",
+    geoCoderApiKey: "c501cd5b8b3f433b8c5f245c3e8161b0"
   };
   
   /*

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { WeatherService } from '../shared/services/weather.service';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { WeatherCondition } from '../shared/models/classes/weather-condition.model';
 import { switchMap, tap } from 'rxjs/operators';
@@ -14,6 +14,11 @@ import { switchMap, tap } from 'rxjs/operators';
 })
 export class DisplayWeatherComponent {
 
+	@HostBinding('style.--test')
+	private test: string = '25%';
+
+	public daysOfTheWeek = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+	
 	public weatherDataToDisplay: WeatherCondition = new WeatherCondition();
   	public weatherConditionsRetrieved$: Observable<WeatherCondition>;
   	userSpecifiedLocation = new FormControl('', [Validators.required]);
@@ -21,7 +26,7 @@ export class DisplayWeatherComponent {
   	constructor(private weatherService: WeatherService) { }
 
   	onFetchWeather(): void {
-    	if (!this.userSpecifiedLocation.valid) {
+    	if (this.userSpecifiedLocation.invalid) {
     		return;
 		}
 

@@ -6,11 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DisplayWeatherComponent } from './display-weather/display-weather.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DailyInformationComponent } from './daily-information/daily-information.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DisplayWeatherComponent
+    DisplayWeatherComponent,
+    DailyInformationComponent
   ],
   imports: [
     BrowserModule,

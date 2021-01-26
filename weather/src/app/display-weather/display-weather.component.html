@@ -21,15 +21,56 @@
 </div> -->
 
 <div class="container h-100 center">
-  <div class="row w-100 d-md-block">
-      <div class="col-md-4 float-right">
-          <div class="news-information-container card shadow-sm"></div>
-      </div>
-      <div class="col-md-8 float-left order-1 p-0">
-          <div class="weather-information-container card shadow-sm"></div>
-      </div>
-      <div class="col-md-4 float-right order-0">
-          <div class="sun-information-container card shadow-sm"></div>
-      </div>
-  </div>
+    <div class="row w-100 d-md-block">
+        <div class="col-md-4 float-right">
+            <div class="news-information-container card shadow"></div>
+        </div>
+        <div class="col-md-8 float-left order-1 p-0">
+            <div class="weather-information-container card shadow">
+                <div class="card-body p-0">
+                    <div class="font temperature">
+                        75°
+                        <p class="font weather-description">
+                            Partly Cloudy
+                        </p>
+                        <hr class="seperator">
+                    </div>
+                    <div class="font daily-info-container">
+                        <app-daily-information *ngFor="let day of daysOfTheWeek" [dayOfTheWeek]="day"></app-daily-information>
+                    </div>
+                    <div class="time-location">
+                        <h5 class="font font-size-18px margin-bottom-5px">
+                            Los Angeles
+                        </h5>
+                        <h6 class="font font-size-15px ">
+                            2:24 PM
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 float-right order-0">
+            <div class="sun-information-container card shadow">
+                <div class="sunrise-font sunrise-time">
+                    Sunrise
+                    <br>&nbsp;06:15
+                </div>
+                <div class="sunrise-font sunset-time">
+                    Sunset
+                    <br>&nbsp;17:42
+                </div>
+                <div class="wrapper">
+                    <div class="obj"></div>
+                    <div class="obj-1"></div>
+                    <div class="obj-2"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120"><path d="M23,83 C55,19 160,19 188,83" fill="none" stroke="#5e5e7d" stroke-width="3" stroke-miterlimit="10"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- <div *ngFor="let day of daysOfTheWeek">
+    <app-daily-information [dayOfTheWeek]="day"></app-daily-information>
+</div> -->
+
